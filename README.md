@@ -27,3 +27,8 @@ A simple and modern portfolio template that is lightweight, mobile responsive an
 
 ### License
 GPL
+
+### To run
+- Open terminal
+- > bundle exec jekyll serve
+- Will open a local server hosting site

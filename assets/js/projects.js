@@ -4,32 +4,32 @@ $(document).ready(() => {
 })
 
 let setupModalListeners = () => {
-    $(document).on('click', '.project-card', function(e) {
+    $(document).on('click', '.project-card', function (e) {
         if (!$(e.target).is('a')) {
             let projectData = $(this).data('project');
             openProjectModal(projectData);
         }
     });
 
-    $(document).on('click', '.modal-close, .modal-overlay', function() {
+    $(document).on('click', '.modal-close, .modal-overlay', function () {
         closeProjectModal();
     });
 
-    $(document).on('click', '.modal-content', function(e) {
+    $(document).on('click', '.modal-content', function (e) {
         e.stopPropagation();
     });
 
-    $(document).on('click', '.gallery-prev', function(e) {
+    $(document).on('click', '.gallery-prev', function (e) {
         e.preventDefault();
         navigateGallery(-1);
     });
 
-    $(document).on('click', '.gallery-next', function(e) {
+    $(document).on('click', '.gallery-next', function (e) {
         e.preventDefault();
         navigateGallery(1);
     });
 
-    $(document).on('click', '.gallery-thumbnail', function(e) {
+    $(document).on('click', '.gallery-thumbnail', function (e) {
         e.preventDefault();
         let index = $(this).data('index');
         showGalleryImage(index);
@@ -48,10 +48,10 @@ let showGalleryImage = (index) => {
     currentGalleryIndex = index;
     $('.gallery-item').removeClass('active');
     $('.gallery-item').eq(index).addClass('active');
-    
+
     $('.gallery-thumbnail').removeClass('active');
     $('.gallery-thumbnail').eq(index).addClass('active');
-    
+
     let totalItems = $('.gallery-item').length;
     $('.gallery-counter').text((index + 1) + ' / ' + totalItems);
 }
@@ -111,13 +111,13 @@ let openProjectModal = (project) => {
             </div>
         </div>
     `);
-    
+
     $('body').append(modal);
     modal.fadeIn(300);
 }
 
 let closeProjectModal = () => {
-    $('#projectModal').fadeOut(300, function() {
+    $('#projectModal').fadeOut(300, function () {
         $(this).remove();
     });
 }
@@ -131,102 +131,54 @@ let render_projects = (slug) => {
 
     let projects_obj = [
         {
+            //BHE Flyers 
+            image: 'assets/images/BHE-shop-poster.png',
+            link: false,
+            title: 'BHE Flyers',
+            demo: false,
+            technologies: ['Photoshop', 'Illustrator', 'InDesign'],
+            description: "Created flyers and posters using the Adobe Suite for BHE hosted events, shop promotionals, handouts, and advertisements.",
+            extendedDescription: "Featured in the gallery above include multiple flyers and posters that I created using Illustrator and Photoshop. First are three posters that are hung in the BHE shop, then a flyer for new car shocks, and finally a flyer for new car springs.",
+            gallery: ['assets/images/BHE-shop-posters.jpeg', 'assets/images/Shock-flyer.png', 'assets/images/Spring-flyer.png'],
+            categories: ['featured', 'flyersPosts']
+        },
+        {
+            //BHE Posts
             image: 'assets/images/BHE-product-photo-post.png',
             link: false,
             title: 'BHE Posts',
             demo: false,
-            technologies: ['Cameras', 'Photoshop', 'Illustrator'],
-            description: "Used DSLR Cameras to take product photos, edited them in photoshop, and finished making product posts in illustrator. They were then uploaded to BHE’s facebook page.",
-                extendedDescription: "Posts included promotional photos and videos for the Harris Clash, product photos for new releases in their online store, reminders for event sign ups, and more!",
-            gallery: ['assets/images/BHE-product-photos-2.png', 'assets/images/BHE-Harris-Clash-promo.png', 'assets/images/RTI-promo.png'],
+            technologies: ['Photoshop', 'Illustrator'],
+            description: "Used company and stock assets to create promotional posts that were uploaded to BHE social accounts.",
+            extendedDescription: "Posts included advertisements for new product photos, company events, reminders for event sign ups, and more!",
+            gallery: ['assets/images/BHE-product-photo-post.png', 'assets/images/BHE-Harris-Clash-promo.png', 'assets/images/RTI-promo.png'],
             categories: ['featured', 'flyersPosts', 'photoVideo']
+        },
+        {
+            //BHE Photo & Video
+            image: 'assets/images/BHE-shop-outside.jpeg',
+            link: false,
+            title: 'BHE Photo & Video',
+            demo: false,
+            technologies: ['Digital Camera', 'Premiere Pro', 'Microphones'],
+            description: "Used DSLR Cameras to take product photos and promotional video, edited them in photoshop and premiere pro to be uploaded on BHE Facebook.",
+            extendedDescription: "Above is a picture of my setup for taking product photos, as well as my setup for an interview shoot with Bob Harris himself! If you want to see my video work, email me and I’ll send you some examples!",
+            gallery: ['assets/images/BHE-product-photos-2.png', 'assets/images/BHE-Bob-interview.png', 'BHE-HarrisClash-promo.mp4'],
+            categories: ['featured', 'photoVideo']
+        },
+        {
+            //BHE Web Design
+            image: 'assets/images/BHE-FB-banner.jpg',
+            link: false,
+            title: 'BHE Web Design',
+            demo: false,
+            technologies: ['Wix'],
+            description: "Created two brand new websites for BHE (Bob Harris Enterprises) and RTI (Race Tech Info, using the web builder Wix and assets from BHE.",
+            extendedDescription: "Unfortunately, BHE has since updated both of these sites, but above show a snapshot as to what my work used to look like!",
+            gallery: ['assets/images/BHE-website.png', 'assets/images/RTI-website.png',],
+            categories: ['featured', 'webDesign']
+        },
 
-        },
-        {
-            image: 'assets/images/mobile-landscape.jpg',
-            link: 'https://github.com/abhn/Wall-E',
-            title: 'Wall-E',
-            demo: 'http://wall-e-jekyll.github.io/',
-            technologies: ['Semantic UI', 'Jekyll'],
-            description: "A modern Jekyll theme with grid frontpage, beautiful typography, mobile responsive, made with Semantic UI.",
-            extendedDescription: "Wall-E is a comprehensive Jekyll theme designed for professionals and developers. It features a responsive grid-based layout built with Semantic UI components, ensuring optimal display across all devices. The theme includes extensive customization options, pre-built sections for projects and skills, and SEO optimization built-in. Perfect for creating a modern, professional portfolio website with minimal setup.",
-            gallery: ['assets/images/whiteSandDuneBG.jpg', 'assets/images/whiteSandDuneBG.jpg', 'assets/images/whiteSandDuneBG.jpg'],
-            categories: ['featured', 'webdev']
-        },
-        {
-            image: 'assets/images/collage.jpg',
-            link: 'https://github.com/abhn/Marvel',
-            title: 'Marvel',
-            demo: false,
-            technologies: ['Android', 'OpenCV'],
-            description: "Attendance marking tool that uses face recognition for marking attendance and firebase for tracking and analytics.",
-            extendedDescription: "Marvel revolutionizes classroom attendance with facial recognition technology. The Android application uses OpenCV to identify students in real-time and automatically logs their attendance to Firebase. Teachers can view attendance reports, generate analytics, and identify trends. This eliminates traditional paper-based or manual rollcall systems and reduces administrative overhead.",
-            gallery: ['assets/images/whiteSandDuneBG.jpg', 'assets/images/whiteSandDuneBG.jpg', 'assets/images/whiteSandDuneBG.jpg'],
-            categories: ['featured', 'native']
-        },
-        {
-            image: 'assets/images/mpw.jpg',
-            link: 'https://github.com/abhn/mpw',
-            title: 'Master Password',
-            demo: 'https://www.nagekar.com/mpw',
-            technologies: ['Semantic UI', 'CSS3'],
-            description: "Master Password is an ingenious password solution that makes your passwords truly impossible to lose.",
-            extendedDescription: "Master Password uses cryptographic algorithms to generate unique passwords on-the-fly from a single master password. Unlike traditional password managers that store encrypted databases, this approach means there's nothing to back up, sync, or lose. Every password is mathematically derived from your master password, making recovery simple and security foolproof.",
-            gallery: ['assets/images/whiteSandDuneBG.jpg', 'assets/images/whiteSandDuneBG.jpg', 'assets/images/whiteSandDuneBG.jpg'],
-            categories: ['featured', 'security']
-        },
-        {
-            image: 'assets/images/social-share-count.jpeg',
-            link: 'https://github.com/abhn/Social-Share-Counts',
-            title: 'Social Share Count',
-            demo: false,
-            technologies: ['Python'],
-            description: "Ever wondered how many times a URL has been shared on popular social networks?",
-            extendedDescription: "This Python utility provides a simple interface to query social media platforms and retrieve sharing statistics for any given URL. It aggregates data from Twitter, Facebook, LinkedIn, and other major platforms to give you a comprehensive view of your content's social reach. Perfect for content creators and marketers analyzing content performance.",
-            gallery: ['assets/images/whiteSandDuneBG.jpg', 'assets/images/whiteSandDuneBG.jpg'],
-            categories: ['native']
-        },
-        {
-            image: 'assets/images/data-destroyer.png',
-            link: 'https://github.com/abhn/data-destroyer-gui',
-            title: 'Data Destroyer',
-            demo: false,
-            technologies: ['C++', 'Qt'],
-            description: "Native GUI wrapper for GNU coreutils tool 'dd'",
-            extendedDescription: "Data Destroyer provides a user-friendly graphical interface for the powerful 'dd' command-line tool. Built with Qt, it simplifies disk imaging, cloning, and formatting operations that would otherwise require command-line expertise. The GUI includes progress tracking, error handling, and safety confirmations to prevent accidental data loss.",
-            gallery: ['assets/images/whiteSandDuneBG.jpg', 'assets/images/whiteSandDuneBG.jpg'],
-            categories: ['native']
-        },
-        {
-            image: 'assets/images/raspberry-pi-monitor.png',
-            link: 'https://github.com/abhn/RPi-Status-Monitor',
-            title: 'Raspberry Pi Monitor',
-            demo: false,
-            technologies: ['python', 'flask'],
-            description: "Web based status monitor/smart mirror, displays system stats, weather and more.",
-            extendedDescription: "Transform your Raspberry Pi into an intelligent information display using this Flask-based web application. Monitor CPU usage, memory, disk space, and system temperature in real-time. Integrate weather data, display time and date, and customize the dashboard layout. Ideal for creating a smart mirror or status board in your home or office.",
-            categories: ['webdev', 'diy']
-        },
-        {
-            image: 'assets/images/s3scan.png',
-            link: 'https://github.com/abhn/S3Scan',
-            title: 'S3Scan',
-            demo: false,
-            technologies: ['python'],
-            description: "Automate crawling of a website and find publicly open S3 buckets for takeover.",
-            extendedDescription: "S3Scan is a security auditing tool that automatically crawls websites and identifies publicly accessible AWS S3 buckets that may pose a security risk. The tool extracts S3 bucket references from web pages and tests their accessibility levels. It's an essential utility for security researchers and organizations looking to identify and remediate S3 bucket misconfigurations.",
-            categories: ['native', 'security']
-        },
-        {
-            image: 'assets/images/elementary.png',
-            link: 'https://github.com/abhn/Elementary',
-            title: 'Elementary',
-            demo: 'https://elementary-jekyll.github.io/',
-            technologies: ['Jekyll', 'CSS3'],
-            description: "Elementary is a zero Javascript and minimal CSS ultra lightweight Jekyll theme for those of you who love simplicity.",
-            extendedDescription: "Elementary embraces minimalism with a zero-JavaScript approach and lightweight CSS styling. Optimized for fast loading times and excellent performance, this Jekyll theme is perfect for blogs and simple portfolio sites. The clean, elegant design focuses on content readability while maintaining full responsiveness across all devices.",
-            categories: ['webdev']
-        },
         {
             image: 'assets/images/soot-spirits.png',
             link: 'https://github.com/abhn/Soot-Spirits',
@@ -294,9 +246,9 @@ let render_projects = (slug) => {
     ]
 
     let projects = [];
-    if(slug == 'all') {
+    if (slug == 'all') {
         projects = projects_obj.map(project_mapper);
-    } 
+    }
     else {
         projects = projects_obj.filter(project => project.categories.includes(slug)).map(project_mapper);
     }
@@ -309,11 +261,11 @@ let project_mapper = project => {
                 
             <div class="card radius shadowDepth1 project-card" data-project='${JSON.stringify(project)}'>
 
-                ${project.image ? 
-                    `<div class="card__image border-tlr-radius">
+                ${project.image ?
+            `<div class="card__image border-tlr-radius">
                         <img src="${project.image}" alt="image" id="project-image" class="border-tlr-radius">
-                    </div>`           
-                : ''}
+                    </div>`
+            : ''}
 
         
                 <div class="card__content card__padding">
@@ -327,8 +279,8 @@ let project_mapper = project => {
                                 
                     <div class="card__meta">
                         ${project.technologies.map(tech =>
-                            `<span class="project-technology paragraph-text-normal">${tech}</span>`
-                        ).join('')}
+                `<span class="project-technology paragraph-text-normal">${tech}</span>`
+            ).join('')}
                     </div>
 
                 </div>

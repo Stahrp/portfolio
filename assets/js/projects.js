@@ -151,7 +151,7 @@ let render_projects = (slug) => {
             technologies: ['Photoshop', 'Illustrator'],
             description: "Used company and stock assets to create promotional posts that were uploaded to BHE social accounts.",
             extendedDescription: "Posts included advertisements for new product photos, company events, reminders for event sign ups, and more!",
-            gallery: ['assets/images/BHE-product-photo-post.png', 'assets/images/BHE-Harris-Clash-promo.png', 'assets/images/RTI-promo.png'],
+            gallery: ['assets/images/BHE-product-photos-2.png', 'assets/images/BHE-Harris-Clash-promo.png', 'assets/images/RTI-promo.png'],
             categories: ['featured', 'flyersPosts', 'photoVideo']
         },
         {

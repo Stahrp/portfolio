@@ -178,7 +178,6 @@ let render_projects = (slug) => {
             gallery: ['assets/images/BHE-website.png', 'assets/images/RTI-website.png',],
             categories: ['featured', 'webDesign']
         },
-
         {
             image: 'assets/images/soot-spirits.png',
             link: 'https://github.com/abhn/Soot-Spirits',
@@ -186,7 +185,7 @@ let render_projects = (slug) => {
             demo: 'https://sootspirits.github.io',
             technologies: ['Jekyll', 'CSS3'],
             description: "A simple responsive two column Jekyll theme. Great for personal blog and basic portfolio website.",
-            extendedDescription: "Soot Spirits is an elegant two-column Jekyll theme ideal for bloggers and portfolio sites. Features include a sidebar for navigation and widgets, a clean main content area for blog posts, and responsive design that adapts beautifully to mobile devices. The theme includes support for categories, tags, and social media integration.",
+            extendedDescription: "",
             categories: ['webdev']
         },
         {

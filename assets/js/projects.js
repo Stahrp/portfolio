@@ -34,6 +34,20 @@ let setupModalListeners = () => {
         let index = $(this).data('index');
         showGalleryImage(index);
     });
+
+    $(document).on('click', '.gallery-image', function (e) {
+        e.stopPropagation();
+        let imageSrc = $(this).attr('src');
+        openImageLightbox(imageSrc);
+    });
+
+    $(document).on('click', '.lightbox-overlay, .lightbox-close', function () {
+        closeLightbox();
+    });
+
+    $(document).on('click', '.lightbox-content', function (e) {
+        e.stopPropagation();
+    });
 }
 
 let currentGalleryIndex = 0;
@@ -105,7 +119,7 @@ let openProjectModal = (project) => {
                     </div>
                     <div class="modal-links">
                         ${project.link ? `<a href="${project.link}" class="modal-button github-button" target="_blank">View on GitHub</a>` : ''}
-                        ${project.demo ? `<a href="${project.demo}" class="modal-button demo-button" target="_blank">Live Demo</a>` : ''}
+                        ${project.demo ? `<a href="${project.demo}" class="modal-button demo-button" target="_blank">View Work</a>` : ''}
                     </div>
                 </div>
             </div>
@@ -118,6 +132,26 @@ let openProjectModal = (project) => {
 
 let closeProjectModal = () => {
     $('#projectModal').fadeOut(300, function () {
+        $(this).remove();
+    });
+}
+
+let openImageLightbox = (imageSrc) => {
+    let lightbox = $(`
+        <div class="lightbox-overlay" id="imageLightbox">
+            <div class="lightbox-content">
+                <button class="lightbox-close">&times;</button>
+                <img src="${imageSrc}" alt="Gallery image" class="lightbox-image">
+            </div>
+        </div>
+    `);
+
+    $('body').append(lightbox);
+    lightbox.fadeIn(300);
+}
+
+let closeLightbox = () => {
+    $('#imageLightbox').fadeOut(300, function () {
         $(this).remove();
     });
 }
@@ -140,7 +174,7 @@ let render_projects = (slug) => {
             description: "Created flyers and posters using the Adobe Suite for BHE hosted events, shop promotionals, handouts, and advertisements.",
             extendedDescription: "Featured in the gallery above include multiple flyers and posters that I created using Illustrator and Photoshop. First are three posters that are hung in the BHE shop, then a flyer for new car shocks, and finally a flyer for new car springs.",
             gallery: ['assets/images/BHE-shop-posters.jpeg', 'assets/images/Shock-flyer.png', 'assets/images/Spring-flyer.png'],
-            categories: ['featured', 'flyersPosts']
+            categories: ['flyersPosts']
         },
         {
             //BHE Posts
@@ -159,10 +193,10 @@ let render_projects = (slug) => {
             image: 'assets/images/BHE-shop-outside.jpeg',
             link: false,
             title: 'BHE Photo & Video',
-            demo: false,
-            technologies: ['Digital Camera', 'Premiere Pro', 'Microphones'],
+            demo: 'https://drive.google.com/file/d/1Qsxwfdix0SUynV_NPdLGttQs92rN_qEi/view?usp=sharing',
+            technologies: ['DSLRs', 'Premiere', 'Microphones'],
             description: "Used DSLR Cameras to take product photos and promotional video, edited them in photoshop and premiere pro to be uploaded on BHE Facebook.",
-            extendedDescription: "Above is a picture of my setup for taking product photos, as well as my setup for an interview shoot with Bob Harris himself! If you want to see my video work, email me and I’ll send you some examples!",
+            extendedDescription: "Above is a picture of my setup for taking product photos, as well as my setup for an interview shoot with Bob Harris himself! If you want to see my video work, click below to see a collection of advirtisements I made at BHE using Premiere Pro.",
             gallery: ['assets/images/BHE-product-photos-2.png', 'assets/images/BHE-Bob-interview.png', 'BHE-HarrisClash-promo.mp4'],
             categories: ['featured', 'photoVideo']
         },
@@ -176,71 +210,43 @@ let render_projects = (slug) => {
             description: "Created two brand new websites for BHE (Bob Harris Enterprises) and RTI (Race Tech Info, using the web builder Wix and assets from BHE.",
             extendedDescription: "Unfortunately, BHE has since updated both of these sites, but above show a snapshot as to what my work used to look like!",
             gallery: ['assets/images/BHE-website.png', 'assets/images/RTI-website.png',],
-            categories: ['featured', 'webDesign']
+            categories: ['webDesign']
         },
         {
-            image: 'assets/images/soot-spirits.png',
-            link: 'https://github.com/abhn/Soot-Spirits',
-            title: 'Soot Spirits',
-            demo: 'https://sootspirits.github.io',
-            technologies: ['Jekyll', 'CSS3'],
-            description: "A simple responsive two column Jekyll theme. Great for personal blog and basic portfolio website.",
-            extendedDescription: "",
-            categories: ['webdev']
-        },
-        {
-            image: 'assets/images/python-chat.png',
-            link: 'https://www.nagekar.com/2014/12/lan-group-messenger-in-python.html',
-            title: 'Terminal Group Chat',
+            //This portfolio
+            image: 'assets/images/portfolio-screenshot.png',
+            link: false,
+            title: 'This Portfolio',
             demo: false,
-            technologies: ['Python', 'Sockets'],
-            description: "Simple terminal group chat based on native sockets using Python.",
-            categories: ['native']
+            technologies: ['Javascript', 'HTML', 'CSS'],
+            description: "Took my old portfolio website and completely redid it from a Jekyll theme using Javascript, HTML, and CSS.",
+            extendedDescription: "I chose to remake this portfolio site from my wix site at stahrp04.wixsite.com/peterstahr because I wanted more control over the design, functionality, and upload formats. Using Javascript, HTML, and CSS, I was able to create a custom site that better showcases my skills and projects.",
+            gallery: ['assets/images/portfolio-screenshot.png'],
+            categories: ['webDesign']
         },
         {
-            image: 'assets/images/old-lcd.jpg',
-            link: 'https://www.nagekar.com/2018/05/reusing-old-laptop-lcd-panel.html',
-            title: 'Reusing Old LCD Panel',
-            demo: false,
-            technologies: ['DIY'],
-            description: "Reusing a dead laptop's LCD panel as a secondary monitor.",
-            categories: ['diy']
+            //3D Modeling
+            image: 'assets/images/parthenon.png',
+            link: false,
+            title: '3D Modeling',
+            demo: 'https://drive.google.com/file/d/18y0Kp2w0FLYiEdSknGCErd_3N6vPThpl/view?usp=sharing',
+            technologies: ['Blender'],
+            description: "Work from 3D Modeling (EMDA 353) at Southern Oregon University. Used Blender to create assets and environments",
+            extendedDescription: "This is one of my favorite classes, and it made me realize my love for 3D modeling work.  First is a dungeon which highlights my work with creating custom environments using multiple tools to create a natural look. And secondly is a project I spent many hours on, making a ‘sun temple’ which brought together my skills in the class. First is an image of the assets, and second is a snapshot of the final render. Below is a render of a flythrough of the Sun Temple environment.",
+            gallery: ['assets/images/dungeon-image.png', 'assets/images/sun-temple-assets.png', 'assets/images/sun-temple-render2.jpg'],
+            categories: ['featured', 'animationModeling']
         },
         {
-            image: 'assets/images/nextcloud-enc.png',
-            link: 'https://www.nagekar.com/2017/08/private-cloud-part-2.html',
-            title: 'Encrypted Self-Hosted Cloud',
-            demo: false,
-            technologies: ['NextCloud', 'GnuPG'],
-            description: "Self hosted encrypted cloud setup with Nextcloud and GnuPG.",
-            categories: ['diy', 'security']
-        },
-        {
-            image: 'assets/images/google-cloud-backup.png',
-            link: 'https://www.nagekar.com/2018/05/encrypted-backup-with-duplicity.html',
-            title: 'Encrypted Backups - Google Cloud',
-            demo: false,
-            technologies: ['NextCloud', 'Duplicity'],
-            description: "Create automated encrypted incremental backups of data. Sync everything securely to Google Cloud.",
-            categories: ['diy', 'security']
-        },
-        {
-            image: 'assets/images/pi-cloud.jpg',
-            link: 'https://www.nagekar.com/2016/01/how-to-private-local-cloud-using-raspberrypi.html',
-            title: 'Local Cloud - Raspberry Pi',
-            demo: false,
-            technologies: ['FTP', 'DIY'],
-            description: "Host a local cloud server with a Raspberry Pi and a spare hard disk. Access data instantaneously on any device on the network.",
-            categories: ['diy']
-        },
-        {
-            image: 'assets/images/koalamate.png',
-            link: 'https://github.com/abhn/koalamate',
-            title: 'Koalamate',
-            demo: false,
-            technologies: ['Electron', 'Javascript'],
-            description: "A cross-platform desktop application that serves as a Wolfram Alpha query place and notes taker.",
-            categories: ['native']
+            //3D & 2D Animation
+            image: 'assets/images/2D-animation-snapshot.png',
+            link: false,
+            title: '3D & 2D Animation',
+            demo: 'https://drive.google.com/file/d/1yIo6rBy44leqwCmoO3YuptIkcEZlr3aw/view?usp=drive_link',
+            technologies: ['Blender', 'Photoshop', 'After Effects'],
+            description: "Here are some examples of my animation work, from my time throughout college at UNI and SOU",
+            extendedDescription: "Below is a link to my final reel from EMDA 353, where we focused on 3D animating in blender. This greatly accelerated my interest and experience with the program and I hope to work more with Blender in the future! The other two images are snapshots of After Effects projects I had from Animation, Video and Sound (ART 2061) at UNI. The first is a stop motion project, and the second is a storyboard from my final! Contact me if you want more info/project reels from that!",
+            gallery: ['assets/images/3D-animation-poses.png', 'assets/images/avs-stopmo.png', 'assets/images/avs-storyboard.png'],
+            categories: ['featured', 'animationModeling', 'photoVideo']
         },
     ]
 
